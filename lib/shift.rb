@@ -12,9 +12,9 @@ class Shift
     @offset = offset
     @shifts = []
   end
-  
+
   def generate
-    @shifts << @key.a_key + @offset.a_offset
+  @shifts << @key.a_key + @offset.a_offset
   @shifts << @key.b_key + @offset.b_offset
   @shifts << @key.c_key + @offset.c_offset
   @shifts << @key.d_key + @offset.d_offset
