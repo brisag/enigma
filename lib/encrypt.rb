@@ -1,14 +1,17 @@
 require_relative "enigma"
-File.open(<filename>, "w")
+message = File.open(ARGV[0], "r")
 
-file = File.open('<filename>', "r")
+require "pry"; binding.pry
 
+incoming_text = message.read
+incoming_text = incoming_text.gsub("\n", "")
+message.close
 
-new_file = File.open('<filename>', "w")
-new_file.write("all the text you want")
-new_file.close
+enigma = Enigma.new(incoming_text)
+encrypted_text = enigma.encrypt
 
+cipher = File.open(ARGV[1], "w")
 
-ARGV == ["red.txt", "blue.txt"]
-ARGV[0] == "red.txt"
-ARGV[1] == "blue.txt"
+cipher.write(encrypted_text[:message])
+cipher.close
+puts "Created '#{ARGV[1]}' with the key #{new_enigma.key} and the date #{new_enigma.date}"
