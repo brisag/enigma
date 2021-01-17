@@ -18,4 +18,13 @@ class OffsetsTest < MiniTest::Test
     assert_equal 0, test_offset.c_offset
     assert_equal 0, test_offset.d_offset
   end
+  def test_it_can_create_offsets
+    test_offset = Offset.new('040895')
+    test_offset.create_offset
+
+    assert_equal 1, test_offset.a_offset
+    assert_equal 0, test_offset.b_offset
+    assert_equal 2, test_offset.c_offset
+    assert_equal 5, test_offset.d_offset
+  end
 end
