@@ -11,30 +11,21 @@ require './lib/keys'
 require 'mocha'
 require 'date'
 
-class EncryptorTest < Minitest::Test
-  def setup
-    @encryptor = Encryptor.new
+class EncryptorTest < MiniTest::Test
+  def test_it_exists_and_has_attributes
+    test_encryptor = Encryptor.new('hello world', '02715', '040895')
+
+    assert_instance_of Encryptor, test_encryptor
+    assert_equal 'hello world', test_encryptor.message
+    assert_equal '02715', test_encryptor.key
+    assert_equal '040895', test_encryptor.date
+    assert_equal [], test_encryptor.encoded_message
   end
 
-  def test_it_exists
-    assert_instance_of Encryptor, @encryptor
+  def test_it_can_get_shifts
+    test_encryptor = Encryptor.new('hello world!', '02715', '040895')
+
+    assert_equal [3, 27, 73, 20], test_encryptor.get_shifts
   end
 
-  def test_initialize
-  @encryptor = Encryptor.new
-
-    assert_equal 180121, @encryptor.todays_date
-  end
-
-  def test_square_date
-    assert_equal 32443574641, @encryptor.square_date
-    assert_equal 1672401025, @encryptor.square_date("040895")
-  end
-
-  def test_last_four_digits
-
-    assert_equal 4641, @encryptor.last_four_digits
-    assert_equal 1025, @encryptor.last_four_digits("040895")
-  end
 end
-#
