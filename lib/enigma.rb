@@ -10,17 +10,10 @@ class Enigma
     # @decryptor = Decryptor.new
   end
 
-	def create_alphabet
-	  @alphabet << (("a".."z").to_a << " ")
-	  @alphabet.flatten!
-	end
-
   def build_encrypt(message, key, date)
-    encryption_hash = {
-									      encryption: message,
+    encryption_hash = {encryption: message,
 									      key: key,
-									      date: date
-									    }
+									      date: date}
     encryption_hash
   end
 
@@ -28,16 +21,14 @@ class Enigma
     build_encrypt(message, key || @encryptor.random_number_generator, date || @encryptor.todays_date_generator)
   end
 
-	# def build_decrypt(message, key, date)
-	# 	encryption_hash = {
-	# 											decryption: message,
-	# 											key: key,
-	# 											date: date
-	# 										}
-	# 	decryption_hash
-	# end
-	#
-	# def encrypt(message, key = nil, date = nil)
-	# 	build_encrypt(message, key || decryption.random_number_generator, date || decryptio.todays_date_generator)
-	# end
+	def build_decrypt(message, key, date)
+		encryption_hash = {decryption: message,
+												key: key,
+												date: date}
+		decryption_hash
+	end
+
+	def encrypt(message, key = nil, date = nil)
+		build_encrypt(message, key || decryption.random_number_generator, date || decryptio.todays_date_generator)
+	end
 end
