@@ -28,4 +28,53 @@ class EncryptorTest < MiniTest::Test
     assert_equal [3, 27, 73, 20], test_encryptor.get_shifts
   end
 
+  def test_it_can_get_starting_indices
+  test_encryptor = Encryptor.new('hello world', '02715', '040895')
+  new_encryptor = Encryptor.new('HelLo February@!', '02715', '040895')
+
+  expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+
+  assert_equal expected, test_encryptor.index_start
+
+  expected = [7, 4, 11, 11, 14, 26, 5, 4, 1, 17, 20, 0, 17, 24, nil, nil]
+
+  assert_equal expected, new_encryptor.index_start
+
+  end
+
+  def test_it_can_generate_encoded_message
+    test_encryptor = Encryptor.new('hello world', '02715', '040895')
+    new_encryptor = Encryptor.new('HelLo February@!', '02715', '040895')
+
+    expected = {encryption:'keder ohulw',
+                key:'02715',
+                date:'040895'}
+
+    assert_equal expected, test_encryptor.generate_encoded_message
+
+    expected = {encryption:'keder yyermuuy@!',
+                key:'02715',
+                date:'040895'}
+
+    assert_equal expected, new_encryptor.generate_encoded_message
+  end
+
+  def test_encode_method
+    test_encryptor = Encryptor.new('hello world', '02715', '040895')
+    index = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+    shift = [3, 27, 73, 20]
+
+    assert_equal 'keder ohulw', test_encryptor.encode(index,shift)
+  end
+
+  def test_create_return_hash
+    test_encryptor = Encryptor.new('hello world', '02715', '040895')
+    test_encryptor.stubs(:key).returns('02715')
+    test_encryptor.stubs(:date).returns('040895')
+    expected = {encryption:'keder ohulw',
+                key:'02715',
+                date:'040895'}
+
+    assert_equal expected, test_encryptor.create_return_hash('keder ohulw')
+  end
 end
