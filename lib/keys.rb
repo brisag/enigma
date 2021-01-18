@@ -4,6 +4,7 @@ class Key
               :b_key,
               :c_key,
               :d_key
+
   def initialize(key)
     @key   = key
     @a_key = 0
