@@ -1,22 +1,25 @@
+require_relative 'hashable'
+
 class Decryptor
-  attr_reader :key,
+  include Hashable
+  attr_reader :message,
+              :key,
               :date,
-              :message,
               :decoded_message,
               :alphabet
 
   def initialize(message, key, date)
     @message = message
-    @key = key
-    @date = date
+    @key     = key
+    @date    = date
     @decoded_message = []
     @alphabet = ("a".."z").to_a << " "
   end
 
   def get_shifts
-    test_key = Key.new(key)
+    test_key    = Key.new(key)
     test_offset = Offset.new(date)
-    shift = Shift.new(test_key, test_offset)
+    shift       = Shift.new(test_key, test_offset)
 
     test_key.create_keys
     test_offset.create_offset
@@ -37,22 +40,14 @@ class Decryptor
         next
       end
       generate = character - shifts[index%4]
-      decoded_message << alphabet.rotate(generate)[0]
+      decoded_message << alphabet.rotate(generate).first
     end
     decoded_message.join
   end
 
   def generate_decoded_message
     index_array = index_start
-    shifts = get_shifts
-		create_return_hash(decode(index_array, shifts))
+    shifts      = get_shifts
+		create_return_hash(decode(index_array, shifts), 'decryption')
 	end
-
-  def create_return_hash(ciphertext)
-    return_hash = {}
-    return_hash[:decryption] = ciphertext
-    return_hash[:date] = date
-    return_hash[:key] = key
-    return_hash
-  end
 end

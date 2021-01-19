@@ -1,4 +1,7 @@
+require_relative 'hashable'
+
 class Encryptor
+  include Hashable
   attr_reader :key,
               :date,
               :message,
@@ -32,7 +35,7 @@ class Encryptor
   def generate_encoded_message
     index_array = index_start
     shifts = get_shifts
-    create_return_hash(encode(index_array, shifts))
+    create_return_hash(encode(index_array, shifts), 'encryption')
   end
 
   def encode(index_array, shifts)
@@ -42,17 +45,9 @@ class Encryptor
         encoded_message << message[index]
         next
       end
-      offs = character + shifts[index%4]
-      encoded_message << alphabet.rotate(offs).first
+      offsets = character + shifts[index%4]
+      encoded_message << alphabet.rotate(offsets).first
     end
     encoded_message.join
-  end
-
-  def create_return_hash(encrypted_string)
-    return_hash = {}
-    return_hash[:encryption] = encrypted_string
-    return_hash[:key] = key
-    return_hash[:date] = date
-    return_hash
   end
 end

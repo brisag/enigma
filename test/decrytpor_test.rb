@@ -12,15 +12,10 @@ require 'mocha'
 require 'date'
 
 class DecryptorTest < MiniTest::Test
-  def test_it_exists
+  def test_it_exists_and_has_attributes
     test_decryptor = Decryptor.new('keder ohulw', '02715', '040895')
 
     assert_instance_of Decryptor, test_decryptor
-  end
-
-  def test_it_has_attributes
-    test_decryptor = Decryptor.new('keder ohulw', '02715', '040895')
-
     assert_equal 'keder ohulw', test_decryptor.message
     assert_equal '02715', test_decryptor.key
     assert_equal '040895', test_decryptor.date
@@ -63,10 +58,10 @@ class DecryptorTest < MiniTest::Test
     test_decryptor = Decryptor.new('keder ohulw', '02715', '040895')
     test_decryptor.stubs(:key).returns('02715')
     test_decryptor.stubs(:date).returns('040895')
-    expected = {encryption:'keder ohulw',
+    expected = {decryption:'keder ohulw',
                 key:'02715',
                 date:'040895'}
 
-    assert_equal expected, test_decryptor.create_return_hash('keder ohulw')
+    assert_equal expected, test_decryptor.create_return_hash('keder ohulw', 'decryption')
   end
 end
