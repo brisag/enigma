@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'date'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
@@ -11,7 +12,6 @@ require './lib/keys'
 require './lib/offsets'
 require './lib/shift'
 require 'mocha'
-require 'date'
 
 class EnigmaTest < MiniTest::Test
 	def test_it_exists
@@ -41,19 +41,19 @@ class EnigmaTest < MiniTest::Test
 		 Date.stubs(:today).returns(Date.new(1995,8,4))
 	   enigma = Enigma.new
 	   expected = {encryption: 'keder ohulw',
-			 						key: '02715',
-									date: '040895'}
+			 						key: 				'02715',
+									date: 			'040895'}
 
 		assert_equal expected, enigma.encrypt('hello world', '02715')
 	 end
 
 	 def test_it_can_decrypt_a_message_using_todays_date
-		 Date.stubs(:strftime).returns(Date.new(2020,4,20))
+		 Date.stubs(:strftime).returns(Date.new(2021,1,18))
 			enigma = Enigma.new
 			encrypted = enigma.encrypt('hello world', '02715')
 			expected = {decryption: 'hello world',
-									key: '02715',
-									date: '180121'}
+									key: 				'02715',
+									date: 			'180121'}
 
 		assert_equal expected, enigma.decrypt(encrypted[:encryption], '02715')
 	end

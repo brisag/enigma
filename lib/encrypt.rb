@@ -1,17 +1,19 @@
-require_relative "enigma"
-message = File.open(ARGV[0], "r")
+require './lib/enigma'
+require './lib/keys'
+require './lib/offsets'
+require './lib/shift'
+require './lib/encryptor'
 
-require "pry"; binding.pry
+handle = File.open(ARGV[0], "r")
 
-incoming_text = message.read
-incoming_text = incoming_text.gsub("\n", "")
-message.close
+incoming_text = handle.read.strip
 
-enigma = Enigma.new(incoming_text)
-encrypted_text = enigma.encrypt
+handle.close
 
-cipher = File.open(ARGV[1], "w")
+enigma = Enigma.new
+writer = File.open(ARGV[1], "w")
 
-cipher.write(encrypted_text[:message])
-cipher.close
-puts "Created '#{ARGV[1]}' with the key #{new_enigma.key} and the date #{new_enigma.date}"
+writer.write(enigma.encrypt(incoming_text))
+writer.close
+
+puts "Created '#{ARGV[1]}' with the key #{enigma.key} and the date #{enigma.date}"

@@ -1,4 +1,6 @@
+require 'date'
 class Enigma
+	attr_reader :message, :date, :key
 	def initialize()
 	end
 
@@ -15,7 +17,7 @@ class Enigma
   def generate_key
     rand(1000000).to_s.rjust(5,'0')
   end
-	
+
 	def todays_date
 		Date.today.strftime("%d%m%y")
 	end
