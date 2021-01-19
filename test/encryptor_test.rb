@@ -75,6 +75,6 @@ class EncryptorTest < MiniTest::Test
                 key:'02715',
                 date:'040895'}
 
-    assert_equal expected, test_encryptor.create_return_hash('keder ohulw')
+    assert_equal expected, test_encryptor.create_return_hash('keder ohulw', 'encryption')
   end
 end
