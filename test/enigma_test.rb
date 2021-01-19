@@ -37,20 +37,17 @@ class EnigmaTest < MiniTest::Test
     assert_equal expected, enigma.decrypt('keder ohulw', '02715', '040895')
 	end
 
-	def test_generate_random_key
-		skip
-		enigma = Enigma.new
+	 def test_encrypt_a_message_with_a_key_using_todays_date
+		 Date.stubs(:today).returns(Date.new(1995,8,4))
+	   enigma = Enigma.new
+	   expected = {encryption: "keder ohulw",
+			 						key: "02715",
+									date: "040895"}
 
-		assert_equal '451291', enigma.generate_key
-	end
+		assert_equal expected, enigma.encrypt("hello world", "02715")
+	 end
 
-	def test_generate_date_today
-		enigma = Enigma.new
-
-		assert_equal '180121', enigma.todays_date
-	end
-
-
+	 
 end
 
 
