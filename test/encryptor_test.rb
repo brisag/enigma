@@ -29,17 +29,16 @@ class EncryptorTest < MiniTest::Test
   end
 
   def test_it_can_get_starting_indices
-  test_encryptor = Encryptor.new('hello world', '02715', '040895')
-  new_encryptor = Encryptor.new('HelLo February@!', '02715', '040895')
+    test_encryptor = Encryptor.new('hello world', '02715', '040895')
+    new_encryptor = Encryptor.new('HelLo February@!', '02715', '040895')
 
-  expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+    expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
 
-  assert_equal expected, test_encryptor.index_start
+    assert_equal expected, test_encryptor.index_start
 
-  expected = [7, 4, 11, 11, 14, 26, 5, 4, 1, 17, 20, 0, 17, 24, nil, nil]
+    expected = [7, 4, 11, 11, 14, 26, 5, 4, 1, 17, 20, 0, 17, 24, nil, nil]
 
-  assert_equal expected, new_encryptor.index_start
-
+    assert_equal expected, new_encryptor.index_start
   end
 
   def test_it_can_generate_encoded_message
